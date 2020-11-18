@@ -11,7 +11,7 @@ from sklearn.metrics import f1_score, precision_recall_fscore_support
 from matplotlib import pyplot as plt
 from multiprocessing import Pool
 
-# from featexp import get_univariate_plots#用于特征筛选，需要先安装featexp
+
 warnings.filterwarnings("ignore")
 
 plt.rcParams['font.sans-serif'] = ['Simhei']
@@ -24,11 +24,17 @@ if not os.path.exists('../feature_importance/'):
 if not os.path.exists('../prediction/'):
     os.mkdir('../prediction/')
 
+if not os.path.exists('../features/'):
+    os.mkdir('../features/')
+
+if not os.path.exists('../submit/'):
+    os.mkdir('../submit/')
+
 
 def eval_score(y_test, y_pre):
     _, _, f_class, _ = precision_recall_fscore_support(
         y_true=y_test, y_pred=y_pre, labels=[0, 1], average=None)
-    fper_class = {'合法': f_class[0], '违法': f_class[1],
+    fper_class = {'Valid': f_class[0], 'Invalid': f_class[1],
                   'f1': f1_score(y_test, y_pre)}
     return fper_class
 
@@ -210,12 +216,16 @@ def predict(name, model, train_data, train_label, test_data, merge=False, n_spli
 
 def get_fearures():
     feature = pd.read_csv(
-        '../feature.csv')
+        '../features/feature.csv')
     entprise_info = pd.read_csv('../data/train/entprise_info.csv')
     data = pd.merge(feature, entprise_info, how='left', on='id')
     cat_features = ['oplocdistrict', 'industryphy', 'industryco', 'enttype', 'enttypeitem',
-                    'state', 'orgid', 'jobid', 'adbusign', 'townsign', 'regtype', 'compform', 'opform', 'venind', 'oploc',  'enttypegb', 'industryphy_industryco',
-                    'enttypegb_enttypeitem', 'nan_num_bin', 'regcap_bin', 'empnum_bin'
+                    'state', 'orgid', 'jobid', 'adbusign', 'townsign', 'regtype', 'compform',
+                    'opform', 'venind', 'oploc',  'enttypegb', 'industryphy_industryco',
+                    'enttypegb_enttypeitem', 'nan_num_bin', 'regcap_bin', 'empnum_bin',
+                    'STATE', 'EMPNUMSIGN', 'BUSSTNAME', 'FORINVESTSIGN', 'WEBSITSIGN', 'FORINVESTSIGN',
+                    'PUBSTATE', 'HAS_TAX', 'HAS_REPORT', 'positive_negtive_mode', 'positive_negtive_last',
+                    'HAS_CHANGE'
                     ]
     data[cat_features].astype(int)
     # print(data.max())
@@ -288,9 +298,9 @@ def train(train_data, train_labels, test_data, cat_features, merge=False):
     max_id, min_id = np.argmax(mean_f1_scores), np.argmin(mean_f1_scores)
     final_score = 3 / 6 * scores[max_id] + 1 / 6 * \
         scores[min_id] + 2 / 6 * scores[3 - max_id - min_id]
-    test_data['score'] = final_score  # 可选:fina_persudo是伪标签的预测结果
+    test_data['score'] = final_score
     submit_csv = test_data[['id', 'score']]
-    submit_csv.to_csv(f'../submit_{merge_name}.csv', index=False)
+    submit_csv.to_csv(f'../submit/submit_{merge_name}.csv', index=False)
     return feature_importance_list
 
 
@@ -298,7 +308,8 @@ if __name__ == "__main__":
     train_data, train_labels, test_data, cat_features = get_fearures()
     cat_feature_importances, rf_feature_importances, lgb_feature_importances = train(
         train_data, train_labels, test_data, cat_features)
-    k = 25
+    # top 60%
+    k = int(train_data.shape[1] * 0.6)
     topk_feature_names = get_topK_features(
         [cat_feature_importances, rf_feature_importances, lgb_feature_importances], k)
     train_data = train_data[topk_feature_names]
