@@ -84,7 +84,7 @@ def cat_serachParm(train_data, train_labels, cat_features):
     best_model = None
     #
     # 55, 60, 70, 80
-    for iter_cnt in [55, 60, 70, 80]:
+    for iter_cnt in [55, 60, 70]:
         print('cat_serachParm iter_cnt:', iter_cnt)
         for lr in [0.03, 0.035, 0.040, 0.045, 0.050, 0.055, 0.060, 0.065]:
             for max_depth in [5, 6, 7, 8]:
@@ -118,7 +118,7 @@ def rf_searchParam(train_data, train_labels):
     best_model = None
     for n_estimators in [50, 55, 57, 60, 65]:
         print('rf_searchParam n_estimators:', n_estimators)
-        for min_samples_split in [5, 6, 8, 10, 13, 15, 17, 20]:
+        for min_samples_split in [4, 5, 6, 8, 10, 13, 15]:
             for max_depth in [10, 11, 12, 13, 15]:
                 # print('rf_searchParam n_estimators:{},min_samples_split:{},max_depth:{}'.format(
                 #     n_estimators, min_samples_split, max_depth))
@@ -157,11 +157,11 @@ def lgb_searchParam(train_data, train_labels, cat_features):
     best = 0
     best_model = None
     # 40, 45, 50, 55, 60, 65, 70
-    for n_estimators in [40, 45, 50, 55, 60, 65, 70]:
+    for n_estimators in [45, 50, 55, 60, 65, 70]:
         print('lgb_searchParam n_estimators:', n_estimators)
-        for max_depth in [6, 7, 8]:
+        for max_depth in [6, 7, 8, 9]:
             for num_leaves in [40, 45, 50, 55, 60, 65, 70]:
-                for learning_rate in [0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25]:
+                for learning_rate in [0.01, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25]:
                     # print('lgb_searchParam n_estimators:{},num_leaves:{},learning_rate:{}'.format(
                     #     n_estimators, num_leaves, learning_rate))
                     lgb_cl = lgb_model(n_estimators, max_depth,
@@ -295,7 +295,7 @@ def train(train_data, train_labels, test_data, cat_features, merge=False):
     results.append(pool.apply_async(func=rf_, args=(
         train_data, train_labels, test_data, merge)))
     results.append(pool.apply_async(func=lgb_, args=(
-        train_data.copy(), train_labels, test_data.copy(), cat_features, merge)))
+        train_data, train_labels, test_data, cat_features, merge)))
     pool.close()
     pool.join()
     feature_importance_list = []
@@ -318,10 +318,15 @@ def train(train_data, train_labels, test_data, cat_features, merge=False):
 
 if __name__ == "__main__":
     train_data, train_labels, test_data, cat_features = get_fearures()
-    cat_feature_importances, rf_feature_importances, lgb_feature_importances = train(
-        train_data, train_labels, test_data, cat_features)
-    # top 60%
-    k = int(train_data.shape[1] * 0.6)
+    # cat_feature_importances, rf_feature_importances, lgb_feature_importances = train(
+    #     train_data, train_labels, test_data, cat_features)
+    cat_feature_importances, rf_feature_importances, lgb_feature_importances = pd.read_csv(
+        '../feature_importance/cat__feature_importance.csv'), pd.read_csv(
+        '../feature_importance/rf__feature_importance.csv'), pd.read_csv(
+        '../feature_importance/lgb__feature_importance.csv')
+    # top 70%
+    # top 40?
+    k = 40
     topk_feature_names = get_topK_features(
         [cat_feature_importances, rf_feature_importances, lgb_feature_importances], k)
     train_data = train_data[topk_feature_names]
