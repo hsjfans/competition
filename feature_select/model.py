@@ -39,7 +39,7 @@ def eval_score(y_test, y_pre):
     return fper_class
 
 
-def k_fold_serachParmaters(model, train_val_data, train_val_kind):
+def k_fold_serachParmaters(model, train_val_data, train_val_kind, cat_features=None):
     mean_f1 = 0
     mean_f1Train = 0
     n_splits = 5
@@ -50,11 +50,14 @@ def k_fold_serachParmaters(model, train_val_data, train_val_kind):
         x_valid = train_val_data.iloc[test]
         y_valid = train_val_kind.iloc[test]
 
-        model.fit(x_train, y_train)
+        if cat_features is not None:
+            model.fit(x_train, y_train,
+                      categorical_feature=cat_features)
+        else:
+            model.fit(x_train, y_train)
         pred = model.predict(x_valid)
         fper_class = eval_score(y_valid, pred)
         mean_f1 += fper_class['f1'] / n_splits
-
         pred_Train = model.predict(x_train)
         fper_class_train = eval_score(y_train, pred_Train)
         mean_f1Train += fper_class_train['f1'] / n_splits
@@ -85,6 +88,8 @@ def cat_serachParm(train_data, train_labels, cat_features):
         print('cat_serachParm iter_cnt:', iter_cnt)
         for lr in [0.03, 0.035, 0.040, 0.045, 0.050, 0.055, 0.060, 0.065]:
             for max_depth in [5, 6, 7, 8]:
+                # print('cat_serachParm iter_cnt:{},lr:{},max_depth:{}'.format(
+                #     iter_cnt, lr, max_depth))
                 clf = cat_model(iter_cnt, lr, max_depth, cat_features)
                 mean_f1 = k_fold_serachParmaters(clf,
                                                  train_data, train_labels)
@@ -113,8 +118,10 @@ def rf_searchParam(train_data, train_labels):
     best_model = None
     for n_estimators in [50, 55, 57, 60, 65]:
         print('rf_searchParam n_estimators:', n_estimators)
-        for min_samples_split in [6, 8, 10, 13, 15, 17, 20]:
-            for max_depth in [11, 12, 13, 15]:
+        for min_samples_split in [5, 6, 8, 10, 13, 15, 17, 20]:
+            for max_depth in [10, 11, 12, 13, 15]:
+                # print('rf_searchParam n_estimators:{},min_samples_split:{},max_depth:{}'.format(
+                #     n_estimators, min_samples_split, max_depth))
                 rf = rf_model(n_estimators, max_depth, min_samples_split)
                 mean_f1 = k_fold_serachParmaters(
                     rf, train_data, train_labels)
@@ -136,7 +143,6 @@ def lgb_model(n_estimators, max_depth, num_leaves, learning_rate):
                                    learning_rate=learning_rate,
                                    n_estimators=n_estimators,
                                    subsample=0.8,
-                                   feature_fraction=0.8,
                                    reg_alpha=0.3,
                                    reg_lambda=0.5,
                                    random_state=2020,
@@ -144,7 +150,7 @@ def lgb_model(n_estimators, max_depth, num_leaves, learning_rate):
     return lgb_model
 
 
-def lgb_searchParam(train_data, train_labels):
+def lgb_searchParam(train_data, train_labels, cat_features):
     print('lgb_searchParam 搜索最佳参数 .......')
     # 搜索最佳参数
     param = []
@@ -156,10 +162,12 @@ def lgb_searchParam(train_data, train_labels):
         for max_depth in [6, 7, 8]:
             for num_leaves in [40, 45, 50, 55, 60, 65, 70]:
                 for learning_rate in [0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25]:
+                    # print('lgb_searchParam n_estimators:{},num_leaves:{},learning_rate:{}'.format(
+                    #     n_estimators, num_leaves, learning_rate))
                     lgb_cl = lgb_model(n_estimators, max_depth,
                                        num_leaves, learning_rate)
                     mean_f1 = k_fold_serachParmaters(
-                        lgb_cl, train_data, train_labels)
+                        lgb_cl, train_data, train_labels, cat_features=cat_features)
                     if mean_f1 > best:
                         param = [n_estimators, max_depth,
                                  num_leaves, learning_rate]
@@ -170,7 +178,7 @@ def lgb_searchParam(train_data, train_labels):
     return best_model, param, best
 
 
-def predict(name, model, train_data, train_label, test_data, merge=False, n_splits=5, shuffle=True, random_state=2020):
+def predict(name, model, train_data, train_label, test_data, cat_features=None, merge=False, n_splits=5, shuffle=True, random_state=2020):
     mean_f1 = 0
     answers = []
     feature_importance_list = []
@@ -185,7 +193,11 @@ def predict(name, model, train_data, train_label, test_data, merge=False, n_spli
         y_train = train_label.iloc[train]
         x_valid = train_data.iloc[valid]
         y_valid = train_label.iloc[valid]
-        model.fit(x_train, y_train)
+        if name == 'lgb' and cat_features is not None:
+            model.fit(x_train, y_train,
+                      categorical_feature=cat_features)
+        else:
+            model.fit(x_train, y_train)
         pred_cab = model.predict(x_valid)
         f1_score_ = eval_score(y_valid, pred_cab)['f1']
         print(name, merge_name, 'model = {} 第{}次验证的f1:{}'.format(
@@ -264,10 +276,10 @@ def rf_(train_data, train_labels, test_data, merge):
     return rf_score, rf_feature_importances, mean_f1
 
 
-def lgb_(train_data, train_labels, test_data, merge):
-    best_lgb, _, _ = lgb_searchParam(train_data, train_labels)
+def lgb_(train_data, train_labels, test_data, cat_features, merge):
+    best_lgb, _, _ = lgb_searchParam(train_data, train_labels, cat_features)
     lgb_score, lgb_feature_importances, mean_f1 = predict('lgb',
-                                                          best_lgb, train_data, train_labels, test_data, merge=merge)
+                                                          best_lgb, train_data, train_labels, test_data, cat_features=cat_features, merge=merge)
     return lgb_score, lgb_feature_importances, mean_f1
 
 
@@ -283,7 +295,7 @@ def train(train_data, train_labels, test_data, cat_features, merge=False):
     results.append(pool.apply_async(func=rf_, args=(
         train_data, train_labels, test_data, merge)))
     results.append(pool.apply_async(func=lgb_, args=(
-        train_data, train_labels, test_data, merge)))
+        train_data.copy(), train_labels, test_data.copy(), cat_features, merge)))
     pool.close()
     pool.join()
     feature_importance_list = []
