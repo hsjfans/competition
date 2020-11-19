@@ -10,7 +10,8 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score, precision_recall_fscore_support
 from matplotlib import pyplot as plt
 from multiprocessing import Pool
-
+import logging
+logging.basicConfig(filename = 'out.log',level=logging.INFO,format = '%(process)d-%(levelname)s-%(asctime)s-%(message)s')
 
 warnings.filterwarnings("ignore")
 
@@ -77,7 +78,7 @@ def cat_model(iter_cnt, lr, max_depth, cat_features):
 
 
 def cat_serachParm(train_data, train_labels, cat_features):
-    print('cat_serachParm 搜索最佳参数 .......')
+    logging.info('cat_serachParm 搜索最佳参数 .......')
     # 搜索最佳参数
     param = []
     best = 0
@@ -85,7 +86,7 @@ def cat_serachParm(train_data, train_labels, cat_features):
     #
     # 55, 60, 70, 80
     for iter_cnt in [55, 60, 70]:
-        print('cat_serachParm iter_cnt:', iter_cnt)
+        logging.info('cat_serachParm iter_cnt:', iter_cnt)
         for lr in [0.03, 0.035, 0.040, 0.045, 0.050, 0.055, 0.060, 0.065]:
             for max_depth in [5, 6, 7, 8]:
                 # print('cat_serachParm iter_cnt:{},lr:{},max_depth:{}'.format(
@@ -97,8 +98,8 @@ def cat_serachParm(train_data, train_labels, cat_features):
                     param = [iter_cnt, lr, max_depth]
                     best = mean_f1
                     best_model = clf
-                    print('cat_serachParm 搜索最佳参数 ', param, best)
-    print('cat_serachParm 搜索最佳参数 ....... over', param, best)
+                    logging.info('cat_serachParm 搜索最佳参数 ', param, best)
+    logging.info('cat_serachParm 搜索最佳参数 ....... over', param, best)
     return best_model, param, best
 
 
@@ -111,13 +112,13 @@ def rf_model(n_estimators, max_depth, min_samples_split):
 
 
 def rf_searchParam(train_data, train_labels):
-    print('rf_searchParam 搜索最佳参数 .......')
+    logging.info('rf_searchParam 搜索最佳参数 .......')
     # 搜索最佳参数
     param = []
     best = 0
     best_model = None
     for n_estimators in [50, 55, 57, 60, 65]:
-        print('rf_searchParam n_estimators:', n_estimators)
+        logging.info('rf_searchParam n_estimators:', n_estimators)
         for min_samples_split in [4, 5, 6, 8, 10, 13, 15]:
             for max_depth in [10, 11, 12, 13, 15]:
                 # print('rf_searchParam n_estimators:{},min_samples_split:{},max_depth:{}'.format(
@@ -129,8 +130,8 @@ def rf_searchParam(train_data, train_labels):
                     param = [n_estimators, min_samples_split, max_depth]
                     best = mean_f1
                     best_model = rf
-                    print('rf_searchParam 搜索最佳参数', param, best)
-    print('rf_searchParam 搜索最佳参数 ....... over', param, best)
+                    logging.info('rf_searchParam 搜索最佳参数', param, best)
+    logging.info('rf_searchParam 搜索最佳参数 ....... over', param, best)
     return best_model, param, best
 
 
@@ -151,14 +152,14 @@ def lgb_model(n_estimators, max_depth, num_leaves, learning_rate):
 
 
 def lgb_searchParam(train_data, train_labels, cat_features):
-    print('lgb_searchParam 搜索最佳参数 .......')
+    logging.info('lgb_searchParam 搜索最佳参数 .......')
     # 搜索最佳参数
     param = []
     best = 0
     best_model = None
     # 40, 45, 50, 55, 60, 65, 70
     for n_estimators in [45, 50, 55, 60, 65, 70]:
-        print('lgb_searchParam n_estimators:', n_estimators)
+        logging.info('lgb_searchParam n_estimators:', n_estimators)
         for max_depth in [6, 7, 8, 9]:
             for num_leaves in [40, 45, 50, 55, 60, 65, 70]:
                 for learning_rate in [0.01, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25]:
@@ -173,8 +174,8 @@ def lgb_searchParam(train_data, train_labels, cat_features):
                                  num_leaves, learning_rate]
                         best = mean_f1
                         best_model = lgb_cl
-                        print('lgb_searchParam 搜索最佳参数', param, best)
-    print('lgb_searchParam 搜索最佳参数 ....... over', param, best)
+                        logging.info('lgb_searchParam 搜索最佳参数', param, best)
+    logging.info('lgb_searchParam 搜索最佳参数 ....... over', param, best)
     return best_model, param, best
 
 
@@ -200,7 +201,7 @@ def predict(name, model, train_data, train_label, test_data, cat_features=None, 
             model.fit(x_train, y_train)
         pred_cab = model.predict(x_valid)
         f1_score_ = eval_score(y_valid, pred_cab)['f1']
-        print(name, merge_name, 'model = {} 第{}次验证的f1:{}'.format(
+        logging.info(name, merge_name, 'model = {} 第{}次验证的f1:{}'.format(
             model, i + 1, f1_score_))
         feature_importance = pd.DataFrame({
             'column': train_data.columns,
@@ -210,7 +211,7 @@ def predict(name, model, train_data, train_label, test_data, cat_features=None, 
         mean_f1 += f1_score_ / n_splits
         ans = model.predict_proba(test)
         answers.append(ans)
-    print(name, merge_name, 'mean f1:', mean_f1)
+    logging.info(name, merge_name, 'mean f1:', mean_f1)
     feature_importances = pd.concat(feature_importance_list)
     feature_importances = feature_importances.groupby(
         'column')['importance'].agg('mean').sort_values(ascending=False).reset_index()
@@ -237,7 +238,7 @@ def get_fearures():
                     'enttypegb_enttypeitem', 'nan_num_bin', 'regcap_bin', 'empnum_bin',
                     'STATE', 'EMPNUMSIGN', 'BUSSTNAME', 'FORINVESTSIGN', 'WEBSITSIGN', 'FORINVESTSIGN',
                     'PUBSTATE', 'HAS_TAX', 'HAS_REPORT', 'positive_negtive_mode', 'positive_negtive_last',
-                    'HAS_CHANGE'
+                    'HAS_CHANGE', 'addition_nan_num_bin'
                     ]
     data[cat_features].astype(int)
     # print(data.max())
@@ -332,8 +333,8 @@ if __name__ == "__main__":
     train_data = train_data[topk_feature_names]
     new_cat_features = topk_feature_names.intersection(cat_features)
     topk_feature_names.add('id')
-    print(' select topK {} train ---------------------'.format(k))
+    logging.info(' select topK {} train ---------------------'.format(k))
     train(train_data,
           train_labels, test_data[topk_feature_names], new_cat_features, merge=True)
-    print(' finsh --------------------------------')
+    logging.info(' finsh --------------------------------')
     # %%
