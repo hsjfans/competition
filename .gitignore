@@ -3,3 +3,6 @@
 ./data
 .ycm_extra_conf.py
 *.tmp
+out
+*.log
+*catboost_inf*

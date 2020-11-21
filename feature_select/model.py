@@ -1,5 +1,5 @@
 # %%
-import os
+
 import warnings
 import numpy as np
 import pandas as pd
@@ -11,25 +11,13 @@ from sklearn.metrics import f1_score, precision_recall_fscore_support
 from matplotlib import pyplot as plt
 from multiprocessing import Pool
 import logging
-logging.basicConfig(filename = 'out.log',level=logging.INFO,format = '%(process)d-%(levelname)s-%(asctime)s-%(message)s')
+logging.basicConfig(filename='out.log', level=logging.INFO,
+                    format='%(process)d-%(levelname)s-%(asctime)s-%(message)s')
 
 warnings.filterwarnings("ignore")
 
 plt.rcParams['font.sans-serif'] = ['Simhei']
 plt.rcParams['axes.unicode_minus'] = False
-
-
-if not os.path.exists('../feature_importance/'):
-    os.mkdir('../feature_importance/')
-
-if not os.path.exists('../prediction/'):
-    os.mkdir('../prediction/')
-
-if not os.path.exists('../features/'):
-    os.mkdir('../features/')
-
-if not os.path.exists('../submit/'):
-    os.mkdir('../submit/')
 
 
 def eval_score(y_test, y_pre):
@@ -86,7 +74,7 @@ def cat_serachParm(train_data, train_labels, cat_features):
     #
     # 55, 60, 70, 80
     for iter_cnt in [55, 60, 70]:
-        logging.info('cat_serachParm iter_cnt:', iter_cnt)
+        logging.info('cat_serachParm iter_cnt: {}'.format(iter_cnt))
         for lr in [0.03, 0.035, 0.040, 0.045, 0.050, 0.055, 0.060, 0.065]:
             for max_depth in [5, 6, 7, 8]:
                 # print('cat_serachParm iter_cnt:{},lr:{},max_depth:{}'.format(
@@ -98,8 +86,9 @@ def cat_serachParm(train_data, train_labels, cat_features):
                     param = [iter_cnt, lr, max_depth]
                     best = mean_f1
                     best_model = clf
-                    logging.info('cat_serachParm 搜索最佳参数 ', param, best)
-    logging.info('cat_serachParm 搜索最佳参数 ....... over', param, best)
+                    logging.info(
+                        'cat_serachParm 搜索最佳参数 {} {}'.format(param, best))
+    logging.info('cat_serachParm 搜索最佳参数 {} {}....... over'.format(param, best))
     return best_model, param, best
 
 
@@ -118,7 +107,7 @@ def rf_searchParam(train_data, train_labels):
     best = 0
     best_model = None
     for n_estimators in [50, 55, 57, 60, 65]:
-        logging.info('rf_searchParam n_estimators:', n_estimators)
+        logging.info('rf_searchParam n_estimators: {}'.format(n_estimators))
         for min_samples_split in [4, 5, 6, 8, 10, 13, 15]:
             for max_depth in [10, 11, 12, 13, 15]:
                 # print('rf_searchParam n_estimators:{},min_samples_split:{},max_depth:{}'.format(
@@ -130,8 +119,9 @@ def rf_searchParam(train_data, train_labels):
                     param = [n_estimators, min_samples_split, max_depth]
                     best = mean_f1
                     best_model = rf
-                    logging.info('rf_searchParam 搜索最佳参数', param, best)
-    logging.info('rf_searchParam 搜索最佳参数 ....... over', param, best)
+                    logging.info(
+                        'rf_searchParam 搜索最佳参数 {} {}'.format(param, best))
+    logging.info('rf_searchParam 搜索最佳参数 {} {}....... over'.format(param, best))
     return best_model, param, best
 
 
@@ -159,7 +149,7 @@ def lgb_searchParam(train_data, train_labels, cat_features):
     best_model = None
     # 40, 45, 50, 55, 60, 65, 70
     for n_estimators in [45, 50, 55, 60, 65, 70]:
-        logging.info('lgb_searchParam n_estimators:', n_estimators)
+        logging.info('lgb_searchParam n_estimators: {}'.format(n_estimators))
         for max_depth in [6, 7, 8, 9]:
             for num_leaves in [40, 45, 50, 55, 60, 65, 70]:
                 for learning_rate in [0.01, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25]:
@@ -174,8 +164,10 @@ def lgb_searchParam(train_data, train_labels, cat_features):
                                  num_leaves, learning_rate]
                         best = mean_f1
                         best_model = lgb_cl
-                        logging.info('lgb_searchParam 搜索最佳参数', param, best)
-    logging.info('lgb_searchParam 搜索最佳参数 ....... over', param, best)
+                        logging.info(
+                            'lgb_searchParam 搜索最佳参数 {} {}'.format(param, best))
+    logging.info(
+        'lgb_searchParam 搜索最佳参数 {} {} ....... over'.format(param, best))
     return best_model, param, best
 
 
@@ -201,8 +193,8 @@ def predict(name, model, train_data, train_label, test_data, cat_features=None, 
             model.fit(x_train, y_train)
         pred_cab = model.predict(x_valid)
         f1_score_ = eval_score(y_valid, pred_cab)['f1']
-        logging.info(name, merge_name, 'model = {} 第{}次验证的f1:{}'.format(
-            model, i + 1, f1_score_))
+        logging.info('name = {}, merge_name = {}, model = {} 第{}次验证的f1:{}'.format(name, merge_name,
+                                                                                  model, i + 1, f1_score_))
         feature_importance = pd.DataFrame({
             'column': train_data.columns,
             'importance': model.feature_importances_,
@@ -211,7 +203,8 @@ def predict(name, model, train_data, train_label, test_data, cat_features=None, 
         mean_f1 += f1_score_ / n_splits
         ans = model.predict_proba(test)
         answers.append(ans)
-    logging.info(name, merge_name, 'mean f1:', mean_f1)
+    logging.info('model {}, merge_name {} , mean f1: {}'.format(
+                 name, merge_name, mean_f1))
     feature_importances = pd.concat(feature_importance_list)
     feature_importances = feature_importances.groupby(
         'column')['importance'].agg('mean').sort_values(ascending=False).reset_index()
@@ -229,17 +222,167 @@ def predict(name, model, train_data, train_label, test_data, cat_features=None, 
 
 def get_fearures():
     feature = pd.read_csv(
-        '../features/feature.csv')
+        '../features/lgb_features.csv')
     entprise_info = pd.read_csv('../data/train/entprise_info.csv')
     data = pd.merge(feature, entprise_info, how='left', on='id')
-    cat_features = ['oplocdistrict', 'industryphy', 'industryco', 'enttype', 'enttypeitem',
-                    'state', 'orgid', 'jobid', 'adbusign', 'townsign', 'regtype', 'compform',
-                    'opform', 'venind', 'oploc',  'enttypegb', 'industryphy_industryco',
-                    'enttypegb_enttypeitem', 'nan_num_bin', 'regcap_bin', 'empnum_bin',
-                    'STATE', 'EMPNUMSIGN', 'BUSSTNAME', 'FORINVESTSIGN', 'WEBSITSIGN', 'FORINVESTSIGN',
-                    'PUBSTATE', 'HAS_TAX', 'HAS_REPORT', 'positive_negtive_mode', 'positive_negtive_last',
-                    'HAS_CHANGE', 'addition_nan_num_bin'
-                    ]
+    cat_features = ['oplocdistrict',
+                    'industryphy',
+                    'industryco',
+                    'enttype',
+                    'enttypeitem',
+                    'state',
+                    'orgid',
+                    'jobid',
+                    'adbusign',
+                    'townsign',
+                    'regtype',
+                    'compform',
+                    'opform',
+                    'venind',
+                    'oploc',
+                    'enttypegb',
+                    'oplocdistrict_industryphy',
+                    'oplocdistrict_industryco',
+                    'oplocdistrict_enttype',
+                    'oplocdistrict_enttypeitem',
+                    'oplocdistrict_state',
+                    'oplocdistrict_orgid',
+                    'oplocdistrict_jobid',
+                    'oplocdistrict_adbusign',
+                    'oplocdistrict_townsign',
+                    'oplocdistrict_regtype',
+                    'oplocdistrict_compform',
+                    'oplocdistrict_opform',
+                    'oplocdistrict_venind',
+                    'oplocdistrict_oploc',
+                    'oplocdistrict_enttypegb',
+                    'industryphy_industryco',
+                    'industryphy_enttype',
+                    'industryphy_enttypeitem',
+                    'industryphy_state',
+                    'industryphy_orgid',
+                    'industryphy_jobid',
+                    'industryphy_adbusign',
+                    'industryphy_townsign',
+                    'industryphy_regtype',
+                    'industryphy_compform',
+                    'industryphy_opform',
+                    'industryphy_venind',
+                    'industryphy_oploc',
+                    'industryphy_enttypegb',
+                    'industryco_enttype',
+                    'industryco_enttypeitem',
+                    'industryco_state',
+                    'industryco_orgid',
+                    'industryco_jobid',
+                    'industryco_adbusign',
+                    'industryco_townsign',
+                    'industryco_regtype',
+                    'industryco_compform',
+                    'industryco_opform',
+                    'industryco_venind',
+                    'industryco_oploc',
+                    'industryco_enttypegb',
+                    'enttype_enttypeitem',
+                    'enttype_state',
+                    'enttype_orgid',
+                    'enttype_jobid',
+                    'enttype_adbusign',
+                    'enttype_townsign',
+                    'enttype_regtype',
+                    'enttype_compform',
+                    'enttype_opform',
+                    'enttype_venind',
+                    'enttype_oploc',
+                    'enttype_enttypegb',
+                    'enttypeitem_state',
+                    'enttypeitem_orgid',
+                    'enttypeitem_jobid',
+                    'enttypeitem_adbusign',
+                    'enttypeitem_townsign',
+                    'enttypeitem_regtype',
+                    'enttypeitem_compform',
+                    'enttypeitem_opform',
+                    'enttypeitem_venind',
+                    'enttypeitem_oploc',
+                    'enttypeitem_enttypegb',
+                    'state_orgid',
+                    'state_jobid',
+                    'state_adbusign',
+                    'state_townsign',
+                    'state_regtype',
+                    'state_compform',
+                    'state_opform',
+                    'state_venind',
+                    'state_oploc',
+                    'state_enttypegb',
+                    'orgid_jobid',
+                    'orgid_adbusign',
+                    'orgid_townsign',
+                    'orgid_regtype',
+                    'orgid_compform',
+                    'orgid_opform',
+                    'orgid_venind',
+                    'orgid_oploc',
+                    'orgid_enttypegb',
+                    'jobid_adbusign',
+                    'jobid_townsign',
+                    'jobid_regtype',
+                    'jobid_compform',
+                    'jobid_opform',
+                    'jobid_venind',
+                    'jobid_oploc',
+                    'jobid_enttypegb',
+                    'adbusign_townsign',
+                    'adbusign_regtype',
+                    'adbusign_compform',
+                    'adbusign_opform',
+                    'adbusign_venind',
+                    'adbusign_oploc',
+                    'adbusign_enttypegb',
+                    'townsign_regtype',
+                    'townsign_compform',
+                    'townsign_opform',
+                    'townsign_venind',
+                    'townsign_oploc',
+                    'townsign_enttypegb',
+                    'regtype_compform',
+                    'regtype_opform',
+                    'regtype_venind',
+                    'regtype_oploc',
+                    'regtype_enttypegb',
+                    'compform_opform',
+                    'compform_venind',
+                    'compform_oploc',
+                    'compform_enttypegb',
+                    'opform_venind',
+                    'opform_oploc',
+                    'opform_enttypegb',
+                    'venind_oploc',
+                    'venind_enttypegb',
+                    'oploc_enttypegb',
+                    'nan_num_bin',
+                    'regcap_bin',
+                    'empnum_bin',
+                    'dt_bin',
+                    'STATE',
+                    'EMPNUMSIGN',
+                    'BUSSTNAME',
+                    'FORINVESTSIGN',
+                    'WEBSITSIGN',
+                    'FORINVESTSIGN',
+                    'PUBSTATE',
+                    'COLEMPLNUM_bin',
+                    'COLGRANUM_bin',
+                    'EMPNUM_bin',
+                    'HAS_TAX',
+                    'has_news_info',
+                    'has_change_info',
+                    'bgxmdm',
+                    'has_other_info',
+                    'has_legal_judgment',
+                    'addition_nan_num_bin']
+
     data[cat_features].astype(int)
     # print(data.max())
     train = data[data.label.notna()]
@@ -319,15 +462,15 @@ def train(train_data, train_labels, test_data, cat_features, merge=False):
 
 if __name__ == "__main__":
     train_data, train_labels, test_data, cat_features = get_fearures()
-    # cat_feature_importances, rf_feature_importances, lgb_feature_importances = train(
-    #     train_data, train_labels, test_data, cat_features)
-    cat_feature_importances, rf_feature_importances, lgb_feature_importances = pd.read_csv(
-        '../feature_importance/cat__feature_importance.csv'), pd.read_csv(
-        '../feature_importance/rf__feature_importance.csv'), pd.read_csv(
-        '../feature_importance/lgb__feature_importance.csv')
+    cat_feature_importances, rf_feature_importances, lgb_feature_importances = train(
+        train_data, train_labels, test_data, cat_features)
+    # cat_feature_importances, rf_feature_importances, lgb_feature_importances = pd.read_csv(
+    #     '../feature_importance/cat__feature_importance.csv'), pd.read_csv(
+    #     '../feature_importance/rf__feature_importance.csv'), pd.read_csv(
+    #     '../feature_importance/lgb__feature_importance.csv')
     # top 70%
     # top 40?
-    k = 40
+    k = int(0.8 * train_data.shape[1])
     topk_feature_names = get_topK_features(
         [cat_feature_importances, rf_feature_importances, lgb_feature_importances], k)
     train_data = train_data[topk_feature_names]

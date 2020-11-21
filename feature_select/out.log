@@ -1,4 +1,189 @@
-90631-INFO-2020-11-19 10:05:45,297- select topK 40 train ---------------------
-90645-INFO-2020-11-19 10:05:45,390-cat_serachParm 搜索最佳参数 .......
-90647-INFO-2020-11-19 10:05:45,430-rf_searchParam 搜索最佳参数 .......
-90646-INFO-2020-11-19 10:05:45,491-lgb_searchParam 搜索最佳参数 .......
+356362-INFO-2020-11-20 09:07:33,139-cat_serachParm 搜索最佳参数 .......
+356362-INFO-2020-11-20 09:07:33,139-cat_serachParm iter_cnt: 55
+356362-INFO-2020-11-20 09:09:23,127-cat_serachParm 搜索最佳参数 .......
+356362-INFO-2020-11-20 09:09:23,128-cat_serachParm iter_cnt: 55
+52677-INFO-2020-11-20 15:25:21,438-cat_serachParm 搜索最佳参数 .......
+52677-INFO-2020-11-20 15:25:21,439-cat_serachParm iter_cnt: 55
+52678-INFO-2020-11-20 15:25:21,573-rf_searchParam 搜索最佳参数 .......
+52679-INFO-2020-11-20 15:25:21,754-lgb_searchParam 搜索最佳参数 .......
+52679-INFO-2020-11-20 15:25:29,961-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.05] 0.7911124812974457
+52678-INFO-2020-11-20 15:25:30,096-rf_searchParam 搜索最佳参数 [50, 4, 10] 0.8320404415181082
+52884-INFO-2020-11-20 15:26:16,467-cat_serachParm 搜索最佳参数 .......
+52884-INFO-2020-11-20 15:26:16,467-cat_serachParm iter_cnt: 55
+52885-INFO-2020-11-20 15:26:16,597-rf_searchParam 搜索最佳参数 .......
+52886-INFO-2020-11-20 15:26:16,761-lgb_searchParam 搜索最佳参数 .......
+53118-INFO-2020-11-20 15:27:44,463-cat_serachParm 搜索最佳参数 .......
+53118-INFO-2020-11-20 15:27:44,463-cat_serachParm iter_cnt: 55
+53119-INFO-2020-11-20 15:27:44,606-rf_searchParam 搜索最佳参数 .......
+53120-INFO-2020-11-20 15:27:44,762-lgb_searchParam 搜索最佳参数 .......
+53120-INFO-2020-11-20 15:27:44,762-lgb_searchParam n_estimators: 45
+53241-INFO-2020-11-20 15:28:15,523-cat_serachParm 搜索最佳参数 .......
+53241-INFO-2020-11-20 15:28:15,523-cat_serachParm iter_cnt: 55
+53242-INFO-2020-11-20 15:28:15,657-rf_searchParam 搜索最佳参数 .......
+53242-INFO-2020-11-20 15:28:15,658-rf_searchParam n_estimators: 50
+53243-INFO-2020-11-20 15:28:15,831-lgb_searchParam 搜索最佳参数 .......
+53243-INFO-2020-11-20 15:28:15,831-lgb_searchParam n_estimators: 45
+53243-INFO-2020-11-20 15:28:24,606-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.05] 0.7911124812974457
+53242-INFO-2020-11-20 15:28:25,140-rf_searchParam 搜索最佳参数 [50, 4, 10] 0.8320404415181082
+53243-INFO-2020-11-20 15:28:29,739-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.08] 0.8023103000032376
+53243-INFO-2020-11-20 15:28:35,250-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.1] 0.8084557771305884
+53243-INFO-2020-11-20 15:28:39,688-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.15] 0.8197313395105204
+53243-INFO-2020-11-20 15:28:44,389-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.2] 0.824890553826484
+53243-INFO-2020-11-20 15:28:49,193-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.25] 0.8290573674165012
+53241-INFO-2020-11-20 15:28:52,339-cat_serachParm 搜索最佳参数 [55, 0.03, 5] 0.8249487620867819
+53242-INFO-2020-11-20 15:28:56,172-rf_searchParam 搜索最佳参数 [50, 4, 13] 0.8358627033191312
+53243-INFO-2020-11-20 15:29:26,753-lgb_searchParam 搜索最佳参数 [45, 6, 45, 0.25] 0.8304320519701054
+53241-INFO-2020-11-20 15:29:36,783-cat_serachParm 搜索最佳参数 [55, 0.03, 6] 0.8332113074980803
+53242-INFO-2020-11-20 15:29:45,090-rf_searchParam 搜索最佳参数 [50, 5, 13] 0.8367831029548827
+53242-INFO-2020-11-20 15:30:34,493-rf_searchParam 搜索最佳参数 [50, 6, 13] 0.8395831736181112
+53241-INFO-2020-11-20 15:31:16,205-cat_serachParm 搜索最佳参数 [55, 0.03, 8] 0.8351634459250347
+53243-INFO-2020-11-20 15:32:52,333-lgb_searchParam 搜索最佳参数 [45, 7, 40, 0.2] 0.8310894588826786
+53243-INFO-2020-11-20 15:32:59,858-lgb_searchParam 搜索最佳参数 [45, 7, 40, 0.25] 0.8331613365790513
+53241-INFO-2020-11-20 15:33:20,295-cat_serachParm 搜索最佳参数 [55, 0.035, 7] 0.83939659272289
+53243-INFO-2020-11-20 15:33:37,794-lgb_searchParam 搜索最佳参数 [45, 7, 45, 0.25] 0.8346573838896321
+53242-INFO-2020-11-20 15:34:09,721-rf_searchParam n_estimators: 55
+53242-INFO-2020-11-20 15:36:47,699-rf_searchParam 搜索最佳参数 [55, 6, 13] 0.8402419122796241
+53243-INFO-2020-11-20 15:39:08,459-lgb_searchParam 搜索最佳参数 [45, 8, 55, 0.2] 0.8357354986836645
+53241-INFO-2020-11-20 15:40:08,265-cat_serachParm 搜索最佳参数 [55, 0.045, 8] 0.8414187614346337
+53242-INFO-2020-11-20 15:40:41,476-rf_searchParam n_estimators: 57
+53243-INFO-2020-11-20 15:43:06,871-lgb_searchParam 搜索最佳参数 [45, 9, 50, 0.25] 0.8384888618433741
+53242-INFO-2020-11-20 15:43:27,815-rf_searchParam 搜索最佳参数 [57, 6, 13] 0.8415048847497442
+53243-INFO-2020-11-20 15:45:03,190-lgb_searchParam 搜索最佳参数 [45, 9, 65, 0.25] 0.839099610739145
+53241-INFO-2020-11-20 15:45:12,451-cat_serachParm 搜索最佳参数 [55, 0.055, 7] 0.8417339846811778
+53243-INFO-2020-11-20 15:45:44,173-lgb_searchParam n_estimators: 50
+53241-INFO-2020-11-20 15:46:06,648-cat_serachParm 搜索最佳参数 [55, 0.055, 8] 0.8434646480025255
+53242-INFO-2020-11-20 15:47:16,765-rf_searchParam n_estimators: 60
+53242-INFO-2020-11-20 15:50:05,676-rf_searchParam 搜索最佳参数 [60, 6, 13] 0.8422175396632559
+53241-INFO-2020-11-20 15:52:07,898-cat_serachParm 搜索最佳参数 [55, 0.065, 8] 0.8437112042617056
+53241-INFO-2020-11-20 15:52:07,901-cat_serachParm iter_cnt: 60
+53242-INFO-2020-11-20 15:54:16,518-rf_searchParam n_estimators: 65
+53243-INFO-2020-11-20 16:01:39,123-lgb_searchParam 搜索最佳参数 [50, 9, 50, 0.25] 0.8431981555887973
+53242-INFO-2020-11-20 16:01:55,042-rf_searchParam 搜索最佳参数 [60, 6, 13] 0.8422175396632559....... over
+53242-INFO-2020-11-20 16:01:58,057-name = rf, merge_name = , model = RandomForestClassifier(max_depth=13, min_samples_split=6, n_estimators=60,
+                       oob_score=True, random_state=2020) 第1次验证的f1:0.8287841191066998
+53242-INFO-2020-11-20 16:02:00,710-name = rf, merge_name = , model = RandomForestClassifier(max_depth=13, min_samples_split=6, n_estimators=60,
+                       oob_score=True, random_state=2020) 第2次验证的f1:0.8514851485148514
+53242-INFO-2020-11-20 16:02:02,705-name = rf, merge_name = , model = RandomForestClassifier(max_depth=13, min_samples_split=6, n_estimators=60,
+                       oob_score=True, random_state=2020) 第3次验证的f1:0.8676470588235294
+53242-INFO-2020-11-20 16:02:05,399-name = rf, merge_name = , model = RandomForestClassifier(max_depth=13, min_samples_split=6, n_estimators=60,
+                       oob_score=True, random_state=2020) 第4次验证的f1:0.8241469816272965
+53242-INFO-2020-11-20 16:02:08,069-name = rf, merge_name = , model = RandomForestClassifier(max_depth=13, min_samples_split=6, n_estimators=60,
+                       oob_score=True, random_state=2020) 第5次验证的f1:0.8390243902439024
+53242-INFO-2020-11-20 16:02:08,188-model rf, merge_name  , mean f1: 0.8422175396632559
+53243-INFO-2020-11-20 16:03:57,535-lgb_searchParam n_estimators: 55
+53241-INFO-2020-11-20 16:12:01,335-cat_serachParm 搜索最佳参数 [60, 0.06, 6] 0.8471454747862672
+53241-INFO-2020-11-20 16:16:40,465-cat_serachParm iter_cnt: 70
+53243-INFO-2020-11-20 16:18:56,411-lgb_searchParam n_estimators: 60
+53243-INFO-2020-11-20 16:35:07,806-lgb_searchParam n_estimators: 65
+53241-INFO-2020-11-20 16:43:24,193-cat_serachParm 搜索最佳参数 [60, 0.06, 6] 0.8471454747862672....... over
+53241-INFO-2020-11-20 16:43:30,738-name = cat, merge_name = , model = <catboost.core.CatBoostClassifier object at 0x7f5363684dc0> 第1次验证的f1:0.8279301745635911
+53241-INFO-2020-11-20 16:43:38,795-name = cat, merge_name = , model = <catboost.core.CatBoostClassifier object at 0x7f5363684dc0> 第2次验证的f1:0.8801955990220048
+53241-INFO-2020-11-20 16:43:46,618-name = cat, merge_name = , model = <catboost.core.CatBoostClassifier object at 0x7f5363684dc0> 第3次验证的f1:0.8486352357320099
+53241-INFO-2020-11-20 16:43:54,540-name = cat, merge_name = , model = <catboost.core.CatBoostClassifier object at 0x7f5363684dc0> 第4次验证的f1:0.8407310704960834
+53241-INFO-2020-11-20 16:44:02,380-name = cat, merge_name = , model = <catboost.core.CatBoostClassifier object at 0x7f5363684dc0> 第5次验证的f1:0.8382352941176472
+53241-INFO-2020-11-20 16:44:03,417-model cat, merge_name  , mean f1: 0.8471454747862672
+53243-INFO-2020-11-20 16:47:14,844-lgb_searchParam n_estimators: 70
+53243-INFO-2020-11-20 16:54:26,951-lgb_searchParam 搜索最佳参数 [50, 9, 50, 0.25] 0.8431981555887973 ....... over
+53243-INFO-2020-11-20 16:54:27,458-name = lgb, merge_name = , model = LGBMClassifier(is_unbalance=True, learning_rate=0.25, max_depth=9,
+               n_estimators=50, num_leaves=50, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第1次验证的f1:0.8254716981132076
+53243-INFO-2020-11-20 16:54:27,896-name = lgb, merge_name = , model = LGBMClassifier(is_unbalance=True, learning_rate=0.25, max_depth=9,
+               n_estimators=50, num_leaves=50, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第2次验证的f1:0.8687350835322197
+53243-INFO-2020-11-20 16:54:28,338-name = lgb, merge_name = , model = LGBMClassifier(is_unbalance=True, learning_rate=0.25, max_depth=9,
+               n_estimators=50, num_leaves=50, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第3次验证的f1:0.8379629629629629
+53243-INFO-2020-11-20 16:54:28,973-name = lgb, merge_name = , model = LGBMClassifier(is_unbalance=True, learning_rate=0.25, max_depth=9,
+               n_estimators=50, num_leaves=50, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第4次验证的f1:0.8446601941747574
+53243-INFO-2020-11-20 16:54:29,361-name = lgb, merge_name = , model = LGBMClassifier(is_unbalance=True, learning_rate=0.25, max_depth=9,
+               n_estimators=50, num_leaves=50, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第5次验证的f1:0.8391608391608392
+53243-INFO-2020-11-20 16:54:29,400-model lgb, merge_name  , mean f1: 0.8431981555887973
+53238-INFO-2020-11-20 16:54:29,713- select topK 148 train ---------------------
+83368-INFO-2020-11-20 16:54:29,786-cat_serachParm 搜索最佳参数 .......
+83368-INFO-2020-11-20 16:54:29,786-cat_serachParm iter_cnt: 55
+83369-INFO-2020-11-20 16:54:29,824-rf_searchParam 搜索最佳参数 .......
+83369-INFO-2020-11-20 16:54:29,825-rf_searchParam n_estimators: 50
+83370-INFO-2020-11-20 16:54:29,845-lgb_searchParam 搜索最佳参数 .......
+83370-INFO-2020-11-20 16:54:29,845-lgb_searchParam n_estimators: 45
+83370-INFO-2020-11-20 16:54:35,009-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.05] 0.7882990337930429
+83369-INFO-2020-11-20 16:54:35,544-rf_searchParam 搜索最佳参数 [50, 4, 10] 0.8358026546078512
+83370-INFO-2020-11-20 16:54:38,642-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.08] 0.7957500921857856
+83369-INFO-2020-11-20 16:54:40,815-rf_searchParam 搜索最佳参数 [50, 4, 11] 0.8359380053122529
+83370-INFO-2020-11-20 16:54:41,956-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.1] 0.8062991831075813
+83368-INFO-2020-11-20 16:54:42,389-cat_serachParm 搜索最佳参数 [55, 0.03, 5] 0.8277134876929109
+83370-INFO-2020-11-20 16:54:45,822-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.15] 0.8171260087939438
+83369-INFO-2020-11-20 16:54:46,517-rf_searchParam 搜索最佳参数 [50, 4, 12] 0.8375558892904827
+83370-INFO-2020-11-20 16:54:49,942-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.2] 0.8228132735561504
+83370-INFO-2020-11-20 16:54:53,168-lgb_searchParam 搜索最佳参数 [45, 6, 40, 0.25] 0.8313924016636252
+83368-INFO-2020-11-20 16:54:55,630-cat_serachParm 搜索最佳参数 [55, 0.03, 6] 0.8321199896053408
+83368-INFO-2020-11-20 16:55:14,322-cat_serachParm 搜索最佳参数 [55, 0.03, 7] 0.8415220571592704
+83369-INFO-2020-11-20 16:56:03,155-rf_searchParam 搜索最佳参数 [50, 8, 10] 0.837833684724402
+83368-INFO-2020-11-20 16:56:23,227-cat_serachParm 搜索最佳参数 [55, 0.035, 7] 0.8441650572580399
+83368-INFO-2020-11-20 16:56:43,675-cat_serachParm 搜索最佳参数 [55, 0.035, 8] 0.8488313536640422
+83370-INFO-2020-11-20 16:57:38,920-lgb_searchParam 搜索最佳参数 [45, 7, 40, 0.2] 0.8348436844835796
+83370-INFO-2020-11-20 16:57:43,922-lgb_searchParam 搜索最佳参数 [45, 7, 40, 0.25] 0.8389975843444138
+83369-INFO-2020-11-20 16:57:56,967-rf_searchParam n_estimators: 55
+83369-INFO-2020-11-20 16:59:37,104-rf_searchParam 搜索最佳参数 [55, 8, 10] 0.83818416750605
+83368-INFO-2020-11-20 17:01:02,057-cat_serachParm 搜索最佳参数 [55, 0.055, 8] 0.8501543136756768
+83369-INFO-2020-11-20 17:01:27,867-rf_searchParam n_estimators: 57
+83368-INFO-2020-11-20 17:03:04,225-cat_serachParm iter_cnt: 60
+83369-INFO-2020-11-20 17:03:09,667-rf_searchParam 搜索最佳参数 [57, 8, 10] 0.8392123046021264
+83369-INFO-2020-11-20 17:05:09,564-rf_searchParam n_estimators: 60
+83370-INFO-2020-11-20 17:06:10,783-lgb_searchParam n_estimators: 50
+83369-INFO-2020-11-20 17:09:07,826-rf_searchParam n_estimators: 65
+83368-INFO-2020-11-20 17:09:42,949-cat_serachParm 搜索最佳参数 [60, 0.055, 8] 0.8514513346426854
+83368-INFO-2020-11-20 17:11:49,970-cat_serachParm iter_cnt: 70
+83369-INFO-2020-11-20 17:13:07,189-rf_searchParam 搜索最佳参数 [57, 8, 10] 0.8392123046021264....... over
+83369-INFO-2020-11-20 17:13:08,257-name = rf, merge_name = merge, model = RandomForestClassifier(max_depth=10, min_samples_split=8, n_estimators=57,
+                       oob_score=True, random_state=2020) 第1次验证的f1:0.8168316831683167
+83369-INFO-2020-11-20 17:13:09,694-name = rf, merge_name = merge, model = RandomForestClassifier(max_depth=10, min_samples_split=8, n_estimators=57,
+                       oob_score=True, random_state=2020) 第2次验证的f1:0.8619854721549637
+83369-INFO-2020-11-20 17:13:10,965-name = rf, merge_name = merge, model = RandomForestClassifier(max_depth=10, min_samples_split=8, n_estimators=57,
+                       oob_score=True, random_state=2020) 第3次验证的f1:0.8660287081339713
+83369-INFO-2020-11-20 17:13:11,997-name = rf, merge_name = merge, model = RandomForestClassifier(max_depth=10, min_samples_split=8, n_estimators=57,
+                       oob_score=True, random_state=2020) 第4次验证的f1:0.8174807197943443
+83369-INFO-2020-11-20 17:13:13,160-name = rf, merge_name = merge, model = RandomForestClassifier(max_depth=10, min_samples_split=8, n_estimators=57,
+                       oob_score=True, random_state=2020) 第5次验证的f1:0.8337349397590361
+83369-INFO-2020-11-20 17:13:13,316-model rf, merge_name merge , mean f1: 0.8392123046021264
+83370-INFO-2020-11-20 17:17:15,325-lgb_searchParam n_estimators: 55
+83370-INFO-2020-11-20 17:19:35,529-lgb_searchParam 搜索最佳参数 [55, 7, 40, 0.2] 0.8390622519856454
+83368-INFO-2020-11-20 17:21:00,223-cat_serachParm 搜索最佳参数 [60, 0.055, 8] 0.8514513346426854....... over
+83368-INFO-2020-11-20 17:21:03,462-name = cat, merge_name = merge, model = <catboost.core.CatBoostClassifier object at 0x7f5362fdf580> 第1次验证的f1:0.8270676691729324
+83368-INFO-2020-11-20 17:21:06,834-name = cat, merge_name = merge, model = <catboost.core.CatBoostClassifier object at 0x7f5362fdf580> 第2次验证的f1:0.8682926829268293
+83368-INFO-2020-11-20 17:21:10,100-name = cat, merge_name = merge, model = <catboost.core.CatBoostClassifier object at 0x7f5362fdf580> 第3次验证的f1:0.8621553884711779
+83368-INFO-2020-11-20 17:21:13,753-name = cat, merge_name = merge, model = <catboost.core.CatBoostClassifier object at 0x7f5362fdf580> 第4次验证的f1:0.8497409326424872
+83368-INFO-2020-11-20 17:21:17,246-name = cat, merge_name = merge, model = <catboost.core.CatBoostClassifier object at 0x7f5362fdf580> 第5次验证的f1:0.8500000000000001
+83368-INFO-2020-11-20 17:21:17,428-model cat, merge_name merge , mean f1: 0.8514513346426854
+83370-INFO-2020-11-20 17:23:02,383-lgb_searchParam n_estimators: 60
+83370-INFO-2020-11-20 17:26:02,812-lgb_searchParam n_estimators: 65
+83370-INFO-2020-11-20 17:29:07,642-lgb_searchParam n_estimators: 70
+83370-INFO-2020-11-20 17:32:24,602-lgb_searchParam 搜索最佳参数 [55, 7, 40, 0.2] 0.8390622519856454 ....... over
+83370-INFO-2020-11-20 17:32:24,788-name = lgb, merge_name = merge, model = LGBMClassifier(is_unbalance=True, learning_rate=0.2, max_depth=7,
+               n_estimators=55, num_leaves=40, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第1次验证的f1:0.8173515981735159
+83370-INFO-2020-11-20 17:32:24,980-name = lgb, merge_name = merge, model = LGBMClassifier(is_unbalance=True, learning_rate=0.2, max_depth=7,
+               n_estimators=55, num_leaves=40, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第2次验证的f1:0.8409090909090909
+83370-INFO-2020-11-20 17:32:25,181-name = lgb, merge_name = merge, model = LGBMClassifier(is_unbalance=True, learning_rate=0.2, max_depth=7,
+               n_estimators=55, num_leaves=40, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第3次验证的f1:0.8401826484018265
+83370-INFO-2020-11-20 17:32:25,382-name = lgb, merge_name = merge, model = LGBMClassifier(is_unbalance=True, learning_rate=0.2, max_depth=7,
+               n_estimators=55, num_leaves=40, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第4次验证的f1:0.850356294536817
+83370-INFO-2020-11-20 17:32:25,587-name = lgb, merge_name = merge, model = LGBMClassifier(is_unbalance=True, learning_rate=0.2, max_depth=7,
+               n_estimators=55, num_leaves=40, objective='binary',
+               random_state=2020, reg_alpha=0.3, reg_lambda=0.5, subsample=0.8,
+               tree_learner='serial') 第5次验证的f1:0.8465116279069768
+83370-INFO-2020-11-20 17:32:25,630-model lgb, merge_name merge , mean f1: 0.8390622519856454
+53238-INFO-2020-11-20 17:32:25,888- finsh --------------------------------

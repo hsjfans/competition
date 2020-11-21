@@ -1,4 +1,12 @@
 #! /bin/bash 
+
+if [ ! -d "./features/" ];then
+  mkdir features
+  echo "features 文件夹已经 Create----"
+else
+  echo "features 文件夹已经存在----"
+fi
+
 runipy baseline.ipynb 
 runipy annual_report_info.ipynb
 runipy tax_info.ipynb
